@@ -3,16 +3,19 @@ import pandas as pd
 import numpy as np
 import polars as pl
 import plotly.express as px
+from pathlib import Path
 
 # set wide mode as default
 st.set_page_config(layout="wide")
+
+data_path = Path("data")
 
 @st.cache
 def load_data(ps_codes,chemicals_to_check):
 	return pl.read_parquet(
 		# r"C:\Users\Denver\Downloads\SWRCB_WQ\swrcb_wq.parquet"
 		# r"C:\Users\Denver\Downloads\SWRCB_WQ\cleaned_swrcb_wq.parquet"
-		r"data\gsa_swrcb_wq.parquet"
+		data_path.joinpath("gsa_swrcb_wq.parquet")
 		).filter(
 			# pl.col('PS Code').str.strip() == f'{id}'
 			pl.col('PS Code').str.strip().is_in(ps_codes)
@@ -175,7 +178,8 @@ class Analyte:
 
 
 
-dfs = pd.read_excel('data\\GSA_info.xlsx', sheet_name=None)
+		
+dfs = pd.read_excel(data_path.joinpath("GSA_info.xlsx"), sheet_name=None)
 GSAs = [i for i in dfs['public_wells']['GSA'].unique()]
 gsa = GSA(dfs,st.sidebar.selectbox('GSA', GSAs))
 # st.dataframe(gsa.chemical_names)
