@@ -2,8 +2,8 @@ import streamlit as st
 import pandas as pd
 import numpy as np
 import polars as pl
-import plotly.express as px
 from pathlib import Path
+import plotly.express as px
 
 st.set_page_config(
 	layout="wide",
@@ -187,6 +187,7 @@ GSAs = [i for i in dfs['public_wells']['GSA'].unique()]
 gsa = GSA(dfs,st.sidebar.selectbox('GSA', GSAs))
 # st.dataframe(gsa.chemical_names)
 ps_code = st.sidebar.selectbox('PS Code',gsa.ps_codes)
+
 analyte_title = st.sidebar.selectbox('Analyte Name', gsa.chemical_titles)
 
 A = Analyte(gsa,ps_code,analyte_title)
