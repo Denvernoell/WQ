@@ -131,7 +131,7 @@ class Analyte:
 
 				st.markdown(f"**Warning: Max level is at or above MCL**")
 				new_mcl = max_level * 1.2
-				st.markdown(f"New MCL = {new_mcl:.2f}")
+				st.markdown(f"Minimum Threshold = {new_mcl:.2f}")
 				# fig.add_hline(y=new_mcl, line_dash="dash", annotation_text=f"New MCL = {new_mcl:.2f}", annotation_position="bottom left", line_color="orange")
 				# only show this line after 2021
 			else:
@@ -151,9 +151,10 @@ class Analyte:
 		fig.add_annotation(x='2016-01-01', y=float(mcl), text=f"California MCL = {mcl}", showarrow=True, arrowhead=1,)
 		if mcl == new_mcl:
 			fig.add_shape(y0=new_mcl, y1=new_mcl, x0=check_period[0], x1=check_period[1], line_dash="dash", line_color="red")
+			fig.add_annotation(x=check_period[0], y=float(new_mcl), text=f"Minimum Threshold (California MCL)= {new_mcl:.2f}", showarrow=True, arrowhead=1,)
 		else:
 			fig.add_shape(y0=new_mcl, y1=new_mcl, x0=check_period[0], x1=check_period[1], line_dash="dash", line_color="orange")
-			fig.add_annotation(x=check_period[0], y=float(new_mcl), text=f"New MCL (120% Max)= {new_mcl:.2f}", showarrow=True, arrowhead=1,)
+			fig.add_annotation(x=check_period[0], y=float(new_mcl), text=f"Minimum Threshold (120% Max)= {new_mcl:.2f}", showarrow=True, arrowhead=1,)
 
 		# annotate mcl
 
